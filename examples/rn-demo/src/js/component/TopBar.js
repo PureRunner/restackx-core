@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import {BaseComponent} from "restackx-core/lib/native";
-import {Link} from 'react-router-native';
 
+import {inject} from "restackx-core/lib/inject"
 import {
     View,
     StyleSheet,
@@ -9,22 +8,24 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import CustomLink from './CustomLink';
+@inject()
+class TopBar extends Component {
 
-class TopBar extends BaseComponent {
     renderItem() {
         let comArr = [];
-        if (this.props.routes) {
-            for (let i = 0; i < this.props.routes.length; i++) {
-                let route = this.props.routes[i];
-                comArr.push(
-                    <Link key={i}  to={route.path} replace={true} component={TouchableOpacity}>
-                        <Text style={{fontSize:16,fontWeight:('bold'),}}>{route.title}</Text>
-                    </Link>
-                );
-            }
+        let routes = this.props.topBar.routes ? this.props.topBar.routes : [];
+        for (let i = 0; i < routes.length; i++) {
+            let route = routes[i],
+                color = this.props.topBar.selectPath === route.path ? "#4e5eff" : "#2c2c2c";
+            comArr.push(
+                <CustomLink key={i} width={80} height={40} color={color} title={route.title}
+                            onLink={() => {
+                                this.props.topBar.togglePath(route.path);
+                            }}/>
+            );
         }
         return comArr;
-
     }
 
     render() {
@@ -40,11 +41,12 @@ class TopBar extends BaseComponent {
 
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#f6f6f6",
-        height:40,
-        marginTop:20,
+        height: 40,
+        marginTop: 20,
         justifyContent: 'center',
 
     },
@@ -61,5 +63,6 @@ TopBar.propTypes = {
     routes: PropTypes.array,
 }
 
+export default TopBar;
 
-export default TopBar ;
+

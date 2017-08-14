@@ -7,7 +7,7 @@
 import React, {PropTypes, Component} from 'react';
 import {observable, computed, reaction} from 'mobx'
 import {observer} from "mobx-react";
-import {BaseComponent} from "restackx-core/lib/native";
+import {inject} from "restackx-core/lib/inject";
 
 import {
     StyleSheet,
@@ -18,26 +18,25 @@ import {
 } from 'react-native';
 import {Link} from 'react-router-native';
 
-
+@inject()
 @observer
-class LaunchPage extends BaseComponent {
+class LaunchPage extends Component {
 
     componentWillMount() {
-
+        this.props.launch.launchActionHandle();
     }
 
     componentDidMount() {
-        // this.context.store.launch.launchActionHandle();
-        // console.log(this.context.store.launch.user);
+        console.log(this.props.launch.user);
     }
 
     render() {
-
+        let user = this.props.launch.user;
         return (
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <Image style={styles.logo} source={require('../../resource/restack_logo.png')}/>
-                    <Text style={styles.instructions}>Welcome to restack-core {'\n'} for react-native</Text>
+                    <Image style={styles.logo} source={user.logo}/>
+                    <Text style={styles.instructions}>{user.introduce}</Text>
                     <Link to={'/main'} replace={true} component={TouchableOpacity}>
                         <Text style={styles.simpleLink}>link the simple</Text>
                     </Link>
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
 });
 
 LaunchPage.prototypes = {
-    id: PropTypes.string
+
 }
 export default LaunchPage;
 

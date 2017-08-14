@@ -5,10 +5,6 @@
  */
 
 import React, {Component,PropTypes} from 'react';
-import {BaseComponent} from "restackx-core/lib/native";
-import {observable, computed, reaction,autorun} from 'mobx'
-import {observer} from "mobx-react";
-
 import {
     StyleSheet,
     Text,
@@ -16,8 +12,7 @@ import {
     Button
 } from 'react-native';
 
-@observer
-class NavBar extends BaseComponent {
+class NavBar extends Component {
     componentWillMount() {
 
     }
@@ -25,7 +20,6 @@ class NavBar extends BaseComponent {
         return (
             <View style={styles.navContainer}>
                 <Text style={styles.title}>{this.props.title}</Text>
-
             </View>
         );
     }

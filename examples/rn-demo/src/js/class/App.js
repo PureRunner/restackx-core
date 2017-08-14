@@ -1,11 +1,12 @@
 
 
-import React, {PropTypes} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {observable, computed, reaction} from 'mobx'
 import {observer} from "mobx-react";
-import {BaseComponent} from "restackx-core/lib/native";
-
 import {Link} from 'react-router-native';
+
+import {inject} from "restackx-core/lib/inject";
+
 import {
     StyleSheet,
     Text,
@@ -14,15 +15,15 @@ import {
 } from 'react-native';
 import NavBar from "../component/NavBar";
 
+@inject()
 @observer
-class App extends BaseComponent {
+class App extends Component {
     @observable id;
 
     componentWillMount() {
-
+        // console.log(this.props.launch.user);
     }
     componentDidMount() {
-
     }
     render() {
         return (
