@@ -4,18 +4,18 @@
  * @flow
  */
 
-import React, {Component,PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    Button
 } from 'react-native';
 
 class NavBar extends Component {
     componentWillMount() {
 
     }
+
     render() {
         return (
             <View style={styles.navContainer}>
@@ -30,24 +30,20 @@ const styles = StyleSheet.create({
         height: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection:'row',
+        flexDirection: 'row',
         backgroundColor: '#ffffff',
-        shadowOpacity:0.3,
-        shadowOffset:{ width:2, height:2 },
-        shadowColor:'#000000',
+        shadowOpacity: 0.3,
+        shadowOffset: {width: 2, height: 2},
+        shadowColor: '#000000',
     },
-    title:{
-        fontSize:17,
-        fontWeight:('bold'),
-        color:"#272727",
-        marginTop:10,
+    title: {
+        fontSize: 17,
+        fontWeight: ('bold'),
+        color: "#272727",
+        marginTop: 10,
     },
-    left:{
-
-    },
-    right:{
-
-    }
+    left: {},
+    right: {}
 });
 NavBar.prototypes = {
     title: PropTypes.string

@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import {observable, computed, reaction} from 'mobx'
-import {inject} from "restackx-core/lib/inject";
+import {observer,inject} from "mobx-react";
 
 import {
     StyleSheet,
@@ -8,12 +8,12 @@ import {
     View,
 } from 'react-native';
 
-@inject("topBar")
+@inject(["store"])
 export class FirstPage extends Component {
 
     componentDidMount() {
         reaction(
-            ()=> this.props.topBar.selectPath,
+            ()=> this.props.store.topBar.selectPath,
             path => {
                 this.props.history.replace(path)
             }
@@ -33,7 +33,7 @@ export class FirstPage extends Component {
 
 
 
-@inject("topBar")
+@inject(["store"])
 export class SecondPage extends Component {
 
     render() {
@@ -46,7 +46,7 @@ export class SecondPage extends Component {
 }
 
 
-@inject("topBar")
+@inject(["store"])
 export class ThirdPage extends Component {
     render() {
         return (

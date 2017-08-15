@@ -5,11 +5,10 @@
  */
 
 import React, {PropTypes, Component} from 'react';
-import {observable, computed, reaction} from 'mobx'
-import {observer} from "mobx-react";
-import {inject} from "restackx-core/lib/inject";
+import {observer, inject} from "mobx-react/native";
 
 import {
+
     StyleSheet,
     Text,
     View,
@@ -18,20 +17,16 @@ import {
 } from 'react-native';
 import {Link} from 'react-router-native';
 
-@inject()
-@observer
-class LaunchPage extends Component {
+
+@observer @inject(["store"])
+
+export default class LaunchPage extends Component {
 
     componentWillMount() {
-        this.props.launch.launchActionHandle();
-    }
-
-    componentDidMount() {
-        console.log(this.props.launch.user);
-    }
-
+        this.props.store.launch.launchActionHandle();
+    };
     render() {
-        let user = this.props.launch.user;
+        let user = this.props.store.launch.user;
         return (
             <View style={styles.container}>
                 <View style={styles.content}>
@@ -53,8 +48,9 @@ class LaunchPage extends Component {
 
             </View>
         );
-        s
     }
+
+
 }
 
 const styles = StyleSheet.create({
@@ -93,8 +89,5 @@ const styles = StyleSheet.create({
     }
 });
 
-LaunchPage.prototypes = {
-
-}
-export default LaunchPage;
+LaunchPage.prototypes = {}
 

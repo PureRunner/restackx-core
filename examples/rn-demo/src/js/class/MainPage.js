@@ -1,33 +1,35 @@
-
-import React, {PropTypes,Component} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {observable, computed, reaction} from 'mobx'
-import {observer} from "mobx-react";
-import {Link,NativeRouter,Route} from 'react-router-native';
-import TopBar from '../component/TopBar'
-import {inject} from "restackx-core/lib/inject";
-
+import {observer, inject} from "mobx-react";
+import {Link, NativeRouter} from 'react-router-native';
+import {Route} from "react-router"
 import {
     StyleSheet,
     Text,
     View,
     TouchableOpacity
 } from 'react-native';
-import {FirstPage,SecondPage,ThirdPage} from "./Page"
 
-@inject()
-@observer
-class Main extends Component {
+import TopBar from '../component/TopBar'
+import {FirstPage, SecondPage, ThirdPage} from "./Page";
+
+
+@observer @inject(["store"])
+export default class MainPage extends Component {
     @observable id;
 
     componentWillMount() {
     }
+
     render() {
-        let routes = this.props.topBar.routes;
+        let routes = this.props.store.topBar.routes;
         return (
             <View style={styles.container}>
                 <NativeRouter>
-                    <View style={{flex:1}}>
-                        <TopBar/>
+                    <View style={{flex: 1}}>
+                        <TopBar routes={routes} toggleChildAction={(path) => {
+                            this.props.store.topBar.togglePath(path)
+                        }}/>
                         <Route exact path={routes[0].path} component={FirstPage}/>
                         <Route path={routes[1].path} component={SecondPage}/>
                         <Route path={routes[2].path} component={ThirdPage}/>
@@ -35,7 +37,7 @@ class Main extends Component {
                 </NativeRouter>
 
                 <Link replace={true} component={TouchableOpacity} to={'/'}>
-                    <Text style={styles.back} >back</Text>
+                    <Text style={styles.back}>back</Text>
                 </Link>
             </View>
 
@@ -47,9 +49,6 @@ class Main extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // backgroundColor: '#ffb283',
     },
     back: {
         color: '#376aff',
@@ -59,9 +58,8 @@ const styles = StyleSheet.create({
     }
 });
 
-Main.prototypes = {
-}
-export default Main;
+MainPage.prototypes = {};
+
 
 
 

@@ -1,11 +1,6 @@
-
-
-import React, {PropTypes,Component} from 'react';
-import {observable, computed, reaction} from 'mobx'
-import {observer} from "mobx-react";
+import React, {PropTypes, Component} from 'react';
+import {observer, inject} from "mobx-react/native";
 import {Link} from 'react-router-native';
-
-import {inject} from "restackx-core/lib/inject";
 
 import {
     StyleSheet,
@@ -15,23 +10,21 @@ import {
 } from 'react-native';
 import NavBar from "../component/NavBar";
 
-@inject()
 @observer
-class App extends Component {
-    @observable id;
-
+export default class AppPage extends Component {
     componentWillMount() {
-        // console.log(this.props.launch.user);
-    }
+    };
+
     componentDidMount() {
-    }
+
+    };
     render() {
         return (
-            <View style={{flex:1}}>
-                <NavBar title = "RESTACKX"/>
+            <View style={{flex: 1}}>
+                <NavBar title="RESTACKX"/>
                 <View style={styles.container}>
                     <Link replace={true} component={TouchableOpacity} to={'/'}>
-                        <Text style={styles.instructions} >RESTACKX CORE FOR {'\n'} REACTNATIVE</Text>
+                        <Text style={styles.instructions}>RESTACKX CORE FOR {'\n'} REACTNATIVE</Text>
 
                     </Link>
                 </View>
@@ -50,11 +43,9 @@ const styles = StyleSheet.create({
     instructions: {
         color: '#7199ff',
         textAlign: 'center',
-        textDecorationLine:'underline'
+        textDecorationLine: 'underline'
 
     },
 });
 
-App.prototypes = {
-};
-export default App
+AppPage.prototypes = {};

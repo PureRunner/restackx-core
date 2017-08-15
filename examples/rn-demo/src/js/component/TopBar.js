@@ -1,28 +1,23 @@
 import React, {Component, PropTypes} from 'react';
 
-import {inject} from "restackx-core/lib/inject"
 import {
     View,
     StyleSheet,
-    Text,
-    TouchableOpacity
 } from 'react-native';
 
 import CustomLink from './CustomLink';
-@inject()
+
 class TopBar extends Component {
 
     renderItem() {
         let comArr = [];
-        let routes = this.props.topBar.routes ? this.props.topBar.routes : [];
+        let routes = this.props.routes;
         for (let i = 0; i < routes.length; i++) {
             let route = routes[i],
-                color = this.props.topBar.selectPath === route.path ? "#4e5eff" : "#2c2c2c";
+                color = route.selected ? "#4e5eff" : "#2c2c2c";
             comArr.push(
                 <CustomLink key={i} width={80} height={40} color={color} title={route.title}
-                            onLink={() => {
-                                this.props.topBar.togglePath(route.path);
-                            }}/>
+                            onLink={() => this.props.toggleChildAction(route.path)}/>
             );
         }
         return comArr;
@@ -60,7 +55,8 @@ const styles = StyleSheet.create({
 })
 
 TopBar.propTypes = {
-    routes: PropTypes.array,
+    routes: PropTypes.object,
+    toggleChildAction: PropTypes.func.isRequired,
 }
 
 export default TopBar;

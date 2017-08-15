@@ -1,23 +1,18 @@
 import React from 'react'
+import Routers from './routes';
+import Store from './store';
+import App from "./App";
 
-import Routers from './routes'
-import Store from './store'
-import {App} from "restackx-core/lib/native";
-
-function setup() {
+export function setup() {
     class Root extends React.Component {
-        render(){
+        render() {
             return (
                 <App store={Store} routes={Routers}/>
             )
         }
     }
+
     return Root;
 }
-module.exports = setup;
-
-//
-
-
 
 
