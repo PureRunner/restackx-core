@@ -74,29 +74,35 @@ export default (
 2. npm i restackx-core --save 安装restackx-core
 3. react-native run-ios
 ```
- 也可在package.json中配置restackx-core依赖，再执行npm install。
-
 [如何搭建react-native工程](https://facebook.github.io/react-native/docs/getting-started.html)
+
+restackx-core框架集成了mobx,mobx-react以及react-router-native，其中observer 是mobx-react单独提供的，用以将React组件转变成响应式组件，inject连接store，为组件提供提数据及状态``` observer([stores], Component) 或 @inject([stores])```。
+
 
 #### store
 
 ```
+import {observable} from "mobx";
+
 import Launch from './models/launch.model';
+import TopBar from './models/TopBar.model';
+
 const models = {
-  "launch" : new Launch(),
+  launch: new Launch(),
+  topBar: new TopBar(),
 }
-export default models;
-//调用方法：this.context.store.launch获取Launch 对象
+export default observable(models);
+//调用方法：this.props.store.launch获取Launch 对象
 ```
 
 	
 #### router
 
 在restackx-core/react-native中使用的是NativeRouter，它这是为native提供了相应的路由。
-具体使用说明可参照[NativeRouter](https://reacttraining.com/react-router/native/api/NativeRouter).
+具体使用可参照[NativeRouter](https://reacttraining.com/react-router/native/api/NativeRouter).
 
 #### routes
-在native app中route并不存在，而是通过导航来管理界面。想要是native实现route的功能可使用react-router-native，routes的具体管理：
+在native app中route并不存在，而是通过导航来管理界面。而在restackx-core/react-native中使用react-router-native来实现原生route的功能，routes的具体管理：
 
 ```
 const Routes = (
